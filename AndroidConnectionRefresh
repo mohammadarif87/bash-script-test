@@ -1,0 +1,18 @@
+#!/bin/bash
+while IPs= read line;
+do 
+IP=($(grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'))
+done < <( adb devices)
+
+####################
+if ((${#IP[@]}));
+then
+for i in ${IP[@]}
+do
+adb disconnect $i
+adb connect $i
+done
+else
+
+echo "no IPs connected"
+fi
